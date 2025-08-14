@@ -1,0 +1,24 @@
+name: Git Action for Read Hello.txt
+
+on:
+    push:
+        branches:
+            - main
+    
+
+
+jobs:
+    read-file:
+        runs-on: ubuntu-latest
+
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+
+            - name: Read and print hello.txt
+              run: |
+                echo "Contents of hello.txt:"
+                cat hello.txt
+    
