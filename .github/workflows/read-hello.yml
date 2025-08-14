@@ -1,24 +1,29 @@
-name: Git Action for Read Hello.txt
-
+name: Git Actions CI/CD
 on:
-    push:
-        branches:
-            - main
-    
+  push:
+    branches:
+      - main
+  
+  pull_request:
+    branches:
+      - main
 
 
 jobs:
-    read-file:
-        runs-on: ubuntu-latest
-
-
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v3
-
-
-            - name: Read and print hello.txt
-              run: |
-                echo "Contents of hello.txt:"
-                cat hello.txt
-    
+  test_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Clone
+        uses: actions/checkout@v2
+      - name: Read hello.txt
+        run: echo "This Is Test Job"
+  build_job:
+    needs: test_job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Clone
+        uses: actions/checkout@v2
+      - name: Set Up Node js.
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'
